@@ -22,7 +22,15 @@ export const fetchCheesesError = error =>({
 export const fetchCheeses = () => dispatch => {
   dispatch(fetchCheesesRequest());
   return fetch(`${API_BASE_URL}/api/cheeses`)
-    .then(res => dispatch(fetchCheesesSuccess(res.json())) )
-    .catch(err => dispatch(fetchCheesesError(err)) );
+    .then(res =>{
+      return res.json();
+    })
+    .then(res => {
+      return dispatch(fetchCheesesSuccess(res));
+    })
+    .catch(err => {
+      console.log('err: ', err);
+      return dispatch(fetchCheesesError(err));
+    });
 };
 
